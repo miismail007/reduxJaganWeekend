@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { decrement, editTitle, increment } from './redux/actions'
 
 function App() {
+  const counter = useSelector((state)=>state.counter)
+  const title = useSelector((state)=>state.title)
+  const dispatch = useDispatch() //to create onject for dispatch class 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>{counter}</h1>
+      <button onClick={()=>{
+        dispatch(increment()) // to trigger action from actions.js for increment the counter state
+      }}>+</button>
+      <button onClick={()=>{
+        dispatch(decrement()) // to trigger action from actions.js for decrement the counter state
+      }}>-</button>
+      <h1>{title}</h1>
+      <input onChange={(text)=>{
+        dispatch(editTitle(text.target.value))
+      }}/>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
